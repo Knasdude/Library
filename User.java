@@ -1,50 +1,33 @@
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
-    public int password;
+public abstract class User {
+    public String password;
     public String emailAddress;
-    public List<BasicBook> borrowedBooks;
+    public List<String> borrowedBooks = new ArrayList<>();
+    public Boolean punishment = false;
 
-    public User (int password, String emailAddress, List<BasicBook> borrowedBooks){
+    public User (String password, String emailAddress){
         this.password = password;
         this.emailAddress = emailAddress;
-        this.borrowedBooks = new ArrayList<>();
     }
 
-    public boolean login (String testEmailAddress, int testPassword) {
-        if (testPassword == password && testEmailAddress == emailAddress){
-            return true;
-        }
-        else {
-            return false;
-        }
+    public boolean login (String emailVerification, String passwordVerification) {
+        return passwordVerification.equals(password) && emailVerification.equals(emailAddress);
     }
 
-    public Boolean borrowBook (BasicBook book) {
-        LocalDate borrowDate = LocalDate.now();
-        LocalDate returnDate = borrowDate.plusDays(28);
-        if (borrowedBooks.size() < 5 && returnDate.isAfter(borrowDate)) {
-            borrowedBooks.add(book);
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
-    public String returnBook (BasicBook book) {
-        if (!borrowedBooks.isEmpty()) {
-            borrowedBooks.remove(book);
-            return "Boken är återlämnad";
-        }
-        else {
-            return "Gick inte att återlämna";
-        }
-    }
-
-    public String getName (String emailAddress) {
+    public String getName () {
         return emailAddress;
     }
+
+    public List<String> getBorrowedBooks () {
+        if (borrowedBooks.size() > 5) {//lånetid
+            punishment = true;
+        }
+
+        return borrowedBooks;
+    }
+
+
 }
