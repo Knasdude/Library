@@ -1,0 +1,7 @@
+public interface Book {
+    String getTitle();
+    String getAuthor();
+    String getDescription();
+    String getISBN();
+    int getCopies();
+}
