@@ -1,11 +1,11 @@
 public class BasicBook {
-    private String title;
-    private String author;
-    public int ISBN;
-    public int copies;
-    public String description;
+    private final String title;
+    private final String author;
+    private final String ISBN;
+    private int copies;
+    private final String description;
 
-    public BasicBook (String description, String title, String author, int ISBN, Boolean ifBorrowed, int copies){
+    public BasicBook (String title, String author, String description,  String ISBN, int copies){
         this.description = description;
         this.title = title;
         this.author = author;
@@ -20,7 +20,7 @@ public class BasicBook {
         return author;
     }
 
-    public int getISBN () {
+    public String getISBN () {
         return ISBN;
     }
 
@@ -32,6 +32,7 @@ public class BasicBook {
         return copies;
         }
 
+    public void setCopies(int copies) {
+        this.copies += copies;
     }
-
-
+}
