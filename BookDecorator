@@ -1,0 +1,32 @@
+public abstract class BookDecorator implements Book{
+    protected Book book;
+
+    public BookDecorator(Book book){
+        this.book = book;
+    }
+
+    @Override
+    public String getTitle(){
+        return book.getTitle();
+    }
+
+    @Override
+    public String getAuthor(){
+        return book.getAuthor();
+    }
+
+    @Override
+    public String getISBN(){
+        return book.getISBN();
+    }
+
+    @Override
+    public String getDescription(){
+        return book.getDescription();
+    }
+
+    @Override
+    public int getCopies(){
+        return book.getCopies();
+    }
+}
