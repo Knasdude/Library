@@ -1,0 +1,12 @@
+public class HardBook extends BookDecorator{
+    private String coverMaterial;
+
+    public HardBook(Book book, String coverMaterial){
+        super(book);
+        this.coverMaterial = coverMaterial;
+    }
+
+    public String getCoverMaterial(){
+        return coverMaterial;
+    }
+}
