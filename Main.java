@@ -1,12 +1,19 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Library library = new Library();
-        library.addBook("Lord Rings");
+        Scanner scanner = new Scanner(System.in); //Skanner läser input från user
 
-        }
+        //Sökväg till dataset med
+        String filename = "C:\\Users\\06joesta\\IdeaProjects\\Bibliotek\\src\\Prog2 Dataset - books.csv.csv";
+
+        // Hämta det du ska söka på
+        //String filename = getFilePath(scanner);
+
+        String keyword = StrategySearch.getSearchKeyword(scanner);
+
+        // Utför sök
+        StrategySearch.performSearch(filename, keyword, scanner);
     }
+}
