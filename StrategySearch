@@ -1,5 +1,97 @@
+import java.io.File;
 import java.util.List;
+import java.util.Scanner;
 
-public interface StrategySearch {
-    List<String> search(String Keyword);
+interface StrategySearch {
+    List<String>search(String keyword);
+
+    public int getCopies();
+
+    public static String getFilePath(Scanner scanner) {
+        while (true) {
+            System.out.print("Sökväg till böcker: ");
+            String filename = scanner.nextLine();
+            File file = new File(filename);
+            if (file.exists() && file.isFile()) {
+                return filename;
+            }
+            System.out.println("Fel: Filen hittades ej, försök igen.");
+        }
+    }
+
+    public static String getSearchKeyword(Scanner scanner) {
+        while (true) {
+            System.out.print("Vad ska du söka efter? ");
+            String keyword = scanner.nextLine().trim();
+            if (!keyword.isEmpty()) {
+                return keyword;
+            }
+            System.out.println("Ange sökord igen ");
+        }
+    }
+
+    public static void performSearch(String filename, String keyword, Scanner scanner) {
+        StrategySearch simpleSearch = new SimpleSearch(filename);
+        List<String> simpleResults = simpleSearch.search(keyword);
+
+        if (!simpleResults.isEmpty()) {
+
+            System.out.println("Resultat första sökning: ");
+            for (int i = 0; i < simpleResults.size(); i++) {
+                System.out.println((i + 1) + ". " + simpleResults.get(i));
+            }
+
+            System.out.println("Vilken bok vill du välja?");
+
+
+            while (true) {
+                int bookChoise = scanner.nextInt();
+                if ((bookChoise <= simpleResults.size()) && (bookChoise >= 1)) {
+                    String chosenBook = simpleResults.get(bookChoise - 1);
+                    System.out.println("Du har valt boken " + chosenBook);
+                    System.out.println();
+                    break;
+
+                } else {
+                    System.out.println("Välj ett index i rangen från 1 till " + simpleResults.size() + ":");
+                    continue;
+                }
+            }
+
+
+        } else {
+            StrategySearch advancedSearch = new AdvancedSearch(filename);
+            List<String> advancedResults = advancedSearch.search(keyword);
+
+            if (!advancedResults.isEmpty()) {
+                System.out.println("Resultat andra sökning:");
+                for (int i = 0; i < advancedResults.size(); i++) {
+                    System.out.println((i + 1) + ". " + advancedResults.get(i));
+
+                }
+                System.out.println("Vilken bok vill du välja? ");
+
+
+                while (true) {
+                    int bookChoise = scanner.nextInt();
+                    if ((bookChoise <= advancedResults.size()) && (bookChoise >= 1)) {
+                        String chosenBook = advancedResults.get(bookChoise - 1);
+                        System.out.println("Du har valt boken " + chosenBook);
+                        break;
+
+                    } else {
+                        System.out.println("Välj ett index i rangen från 1 till " + advancedResults.size() + ":");
+                        continue;
+                    }
+                }
+
+
+            }
+            else {
+                System.out.println("Inga resultat hittades.");
+            }
+        }
+    }
+
+
 }
