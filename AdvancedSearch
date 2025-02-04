@@ -1,0 +1,53 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+
+import java.util.*;
+import java.io.*;
+
+public class AdvancedSearch implements StrategySearch {
+    private String filename;
+
+    public AdvancedSearch(String filename) {
+        this.filename = filename;
+    }
+
+    @Override
+    public List<String> search(String keyword) {
+        List<String> results = new ArrayList<>();
+
+        String lowerCaseKeyword = keyword.toLowerCase();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+
+                //4 delar av sökorden
+                if (parts.length == 4) {
+                    String title = parts[0].toLowerCase();
+                    String author = parts[1].toLowerCase();
+                    String isbn = parts[2].toLowerCase();
+                    String year = parts[3].toLowerCase();
+
+                    //om innehåller delar av orden
+                    if (title.contains(lowerCaseKeyword) || author.contains(lowerCaseKeyword) || isbn.contains(lowerCaseKeyword) || year.contains(lowerCaseKeyword)) {
+
+                        results.add(line + "\n");
+                    }
+                }
+            }
+
+        }
+
+        catch(IOException e){
+                System.out.println("Problem med inläsning uppstod");
+        }
+
+        return results;
+    }
+}
