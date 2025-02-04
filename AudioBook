@@ -1,0 +1,19 @@
+import java.util.Objects;
+
+public class AudioBook extends BookDecorator{
+    private String narrator;
+
+    public AudioBook(Book book, String narrator){
+        super(book);
+        this.narrator = narrator;
+    }
+
+    public String getNarrator(){
+        return Objects.requireNonNullElse(narrator, "Berättare saknas");
+    }
+
+    @Override
+    public String getDescription(){
+        return super.getDescription() + " Bok läses av " + narrator + ".";
+    }
+}
