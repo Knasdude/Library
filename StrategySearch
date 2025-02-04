@@ -1,0 +1,5 @@
+import java.util.List;
+
+public interface StrategySearch {
+    List<String> search(String Keyword);
+}
