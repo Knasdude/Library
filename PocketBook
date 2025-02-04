@@ -1,0 +1,21 @@
+import java.lang.Math;
+
+public class PocketBook extends BookDecorator{
+
+    public PocketBook(Book book) {
+        super(book);
+    }
+    @Override
+    public int getPages(){
+        double pages = super.getPages()*1.1;
+        long pagesL =  Math.round(pages);
+        int pagesI = (int) pagesL;
+        System.out.println(pagesI);
+        return pagesI;
+    }
+
+    @Override
+    public String getDescription(){
+        return super.getDescription() + " Bok i pocket format ";
+    }
+}
