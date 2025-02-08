@@ -15,7 +15,7 @@ public abstract class User {
     public void saveUser () {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Users.txt", true))) {
             writer.write("User: " + emailAddress + " Password: " + password + "\n");
-            writer.flush();
+            writer.close();
         }
         catch (IOException e) {
             System.out.println("Error writing user data: " + e.getMessage());
