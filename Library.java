@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Library {
 
     public String borrowBook (String email, String password, StudentUser user, BasicBook book) {
-        if (user.login(email, password) && user.borrowedBooks.size() < 5){
+        if (user.login(email, password) && user.gteBorrowedBooks.size() < 5){
             user.borrowedBooks.add(book.getISBN());
             try {
                 FileWriter userBorrowsWriter = new FileWriter("C:\\Users\\06rohshe\\IdeaProjects\\Library\\src\\borrows.txt");
